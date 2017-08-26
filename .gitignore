@@ -1,0 +1,5 @@
+env/*.secret.env
+plex
+gitlab
+doomsday-machine
+backups

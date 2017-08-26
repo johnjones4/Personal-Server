@@ -1,0 +1,100 @@
+version: '2'
+
+services:
+  nginx:
+    image: nginx
+    volumes:
+      - "./nginx:/etc/nginx/conf.d"
+    ports:
+      - "80:80"
+    restart: always
+    links:
+      - "redditscheduler:redditscheduler"
+      - "portainer:portainer"
+      - "plex:plex"
+      - "gitlab:gitlab"
+  redditscheduler:
+    build: ./reddit-scheduler
+    environment:
+      MONGOOSE_URL: mongo
+      EXPRESS_PORT: 8001
+    env_file:
+      - ./env/reddit-scheduler.secret.env
+    links:
+      - "mongo:mongo"
+    restart: always
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - "mongo:/data/db"
+    restart: always
+  portainer:
+    image: portainer/portainer
+    volumes:
+      - "portainer:/data"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    restart: always
+  plex:
+    image: plexinc/pms-docker
+    volumes:
+      - "./plex/config:/config"
+      - "./plex/transcode:/transcode"
+      - "./plex/data:/data"
+    ports:
+      - "32400:32400"
+      - "3005:3005"
+      - "8324:8324"
+      - "32469:32469"
+      - "1900:1900"
+      - "32410:32410"
+      - "32412:32412"
+      - "32413:32413"
+      - "32414:32414"
+    environment:
+      TZ: "America/New_York"
+      ADVERTISE_IP: "http://plex.local.johnjonesfour.com:32400"
+    env_file:
+      - ./env/plex.secret.env
+    hostname: plex.local.johnjonesfour.com
+    restart: always
+  gitlab:
+    image: gitlab/gitlab-ce:latest
+    hostname: git.local.johnjonesfour.com
+    ports:
+      - "2222:22"
+    restart: always
+    volumes:
+      - "./gitlab/etc:/etc/gitlab"
+      - "./gitlab/log:/var/log/gitlab"
+      - "./gitlab/opt:/var/opt/gitlab"
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'http://git.local.johnjonesfour.com'
+  doomsdaymachine:
+    build: ./Doomsday-Machine-2
+    restart: always
+    environment:
+      RETENTION_DAYS: 5
+      RCLONE_REMOTES: GoogleDrive:Dropbox
+      GITHUB_USER: johnjones4
+    volumes:
+      - "./doomsday-machine/files/workdir:/var/cloudbackups/workdir"
+      - "./doomsday-machine/files/archives:/var/cloudbackups/archives"
+      - "./doomsday-machine/config/lastpass:/root/.lpass"
+      - "./doomsday-machine/config/geeknote:/root/.geeknote"
+      - "./doomsday-machine/config/imap:/root/.imap-backup"
+      - "./doomsday-machine/config/rclone:/root/.config/rclone"
+      - "./doomsday-machine/config/conf:/etc/cloudbackup"
+  backup:
+    build: ./backup
+    volumes:
+      - "./backups:/backups"
+      - "./doomsday-machine/config:/containers/doomsday-machine"
+      - "./plex:/containers/plex"
+      - "./gitlab:/containers/gitlab"
+      - "./doomsday-machine/config/rclone:/root/.config/rclone"
+volumes:
+  mongo:
+  portainer:
