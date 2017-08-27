@@ -72,6 +72,7 @@ services:
     environment:
       GITLAB_OMNIBUS_CONFIG: |
         external_url 'http://git.local.johnjonesfour.com'
+        gitlab_shell_ssh_port 776
   doomsdaymachine:
     build: ./Doomsday-Machine-2
     restart: always
