@@ -63,15 +63,15 @@ services:
     image: gitlab/gitlab-ce:latest
     hostname: git.local.johnjonesfour.com
     ports:
-      - "2222:22"
+      - "2222:2222"
     restart: always
     volumes:
       - "./gitlab/etc:/etc/gitlab"
       - "./gitlab/log:/var/log/gitlab"
       - "./gitlab/opt:/var/opt/gitlab"
     environment:
-      GITLAB_OMNIBUS_CONFIG: |
-        external_url 'http://gitlabs.local.johnjonesfour.com'
+      GITLAB_HOST: gitlab.local.johnjonesfour.com
+      GITLAB_SSH_PORT: 2222
   doomsdaymachine:
     build: ./Doomsday-Machine-2
     restart: always
