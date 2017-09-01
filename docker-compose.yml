@@ -63,7 +63,7 @@ services:
     image: gitlab/gitlab-ce:latest
     hostname: git.local.johnjonesfour.com
     ports:
-      - "2222:2222"
+      - "2222:22"
     restart: always
     volumes:
       - "./gitlab/etc:/etc/gitlab"
