@@ -13,4 +13,5 @@ mkdir doomsday-machine/config
 mkdir doomsday-machine/files
 mkdir doomsday-machine/files/workdir
 mkdir doomsday-machine/files/archives
+certbot --standalone --renew-by-default -d gitlab.local.johnjonesfour.com
 docker-compose build

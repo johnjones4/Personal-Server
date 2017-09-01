@@ -5,8 +5,10 @@ services:
     image: nginx
     volumes:
       - "./nginx:/etc/nginx/conf.d"
+      - "/etc/letsencrypt:/etc/letsencrypt"
     ports:
       - "80:80"
+      - "443:443"
     restart: always
     links:
       - "redditscheduler:redditscheduler"
