@@ -66,7 +66,7 @@ services:
       ROOT_URL: rolodex.local.johnjonesfour.com
       UPLOAD_DIR: /var/rolodex/uploads
     volumes:
-      - "rolodex:/var/rolodex"
+      - "./rolodex:/var/rolodex"
   backup:
     build: ./backup
     volumes:
@@ -74,7 +74,6 @@ services:
       - "./doomsday-machine/config:/containers/doomsday-machine"
       - "./plex:/containers/plex"
       - "./doomsday-machine/config/rclone:/root/.config/rclone"
-      - "rolodex:/containers/rolodex"
+      - "./rolodex:/containers/rolodex"
 volumes:
   portainer:
-  rolodex:
