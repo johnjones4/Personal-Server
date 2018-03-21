@@ -8,6 +8,9 @@ mongodump --host=mongo--port=27017 --out="$MONGO_FILE"
 tar zcf "$MONGO_FILE.tar.gz" "$MONGO_FILE"
 rm -rf "$MONGO_FILE"
 
+ROLODEX_FILES="$BACKUP_DIR/rolodex_$TIMESTAMP"
+tar zcf "$ROLODEX_FILES.tar.gz" "/containers/rolodex"
+
 DOOMSDAY_MACHINE_FILES="$BACKUP_DIR/doomsday_machine_config_$TIMESTAMP"
 tar zcf "$DOOMSDAY_MACHINE_FILES.tar.gz" "/containers/doomsday-machine"
 

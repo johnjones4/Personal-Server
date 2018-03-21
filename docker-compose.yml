@@ -65,13 +65,16 @@ services:
       DB_PATH: /var/rolodex/db.sqlite
       ROOT_URL: rolodex.local.johnjonesfour.com
       UPLOAD_DIR: /var/rolodex/uploads
+    volumes:
+      - "rolodex:/var/rolodex"
   backup:
     build: ./backup
     volumes:
       - "./backups:/backups"
       - "./doomsday-machine/config:/containers/doomsday-machine"
       - "./plex:/containers/plex"
-      - "./gitlab:/containers/gitlab"
       - "./doomsday-machine/config/rclone:/root/.config/rclone"
+      - "rolodex:/containers/rolodex"
 volumes:
   portainer:
+  rolodex:
