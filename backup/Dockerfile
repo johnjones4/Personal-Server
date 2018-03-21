@@ -21,7 +21,7 @@ ADD crontab /etc/crontab
 ADD supervisor.conf /etc/supervisor/conf.d/backup.conf
 
 WORKDIR /usr/local/src
-RUN curl -O https://downloads.rclone.org/v1.36/rclone-v1.36-linux-amd64.zip
+RUN curl -O https://downloads.rclone.org/v1.40/rclone-v1.40-linux-amd64.zip
 RUN unzip rclone-v1.36-linux-amd64.zip
 WORKDIR /usr/local/src/rclone-v1.36-linux-amd64
 RUN cp rclone /usr/bin/
