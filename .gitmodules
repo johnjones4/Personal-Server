@@ -1,6 +1,3 @@
-[submodule "reddit-scheduler"]
-	path = reddit-scheduler
-	url = git@github.com:johnjones4/reddit-scheduler.git
 [submodule "Doomsday-Machine-2"]
 	path = Doomsday-Machine-2
 	url = git@github.com:johnjones4/Doomsday-Machine-2.git
