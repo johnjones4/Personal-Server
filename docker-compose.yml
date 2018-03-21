@@ -9,27 +9,9 @@ services:
       - "80:80"
     restart: always
     links:
-      - "redditscheduler:redditscheduler"
       - "portainer:portainer"
       - "plex:plex"
-      - "gitlab:gitlab"
-  redditscheduler:
-    build: ./reddit-scheduler
-    environment:
-      MONGOOSE_URL: mongo
-      EXPRESS_PORT: 8001
-    env_file:
-      - ./env/reddit-scheduler.secret.env
-    links:
-      - "mongo:mongo"
-    restart: always
-  mongo:
-    image: mongo
-    ports:
-      - "27017:27017"
-    volumes:
-      - "mongo:/data/db"
-    restart: always
+      - "rolodex:rolodex"
   portainer:
     image: portainer/portainer
     volumes:
@@ -59,20 +41,6 @@ services:
       - ./env/plex.secret.env
     hostname: plex.local.johnjonesfour.com
     restart: always
-  gitlab:
-    image: gitlab/gitlab-ce:latest
-    hostname: git.local.johnjonesfour.com
-    ports:
-      - "2222:22"
-    restart: always
-    volumes:
-      - "./gitlab/etc:/etc/gitlab"
-      - "./gitlab/log:/var/log/gitlab"
-      - "./gitlab/opt:/var/opt/gitlab"
-    environment:
-      GITLAB_OMNIBUS_CONFIG: |
-        external_url 'http://gitlab.local.johnjonesfour.com'
-        gitlab_rails['gitlab_shell_ssh_port'] = 2222
   doomsdaymachine:
     build: ./Doomsday-Machine-2
     restart: always
@@ -88,6 +56,15 @@ services:
       - "./doomsday-machine/config/imap:/root/.imap-backup"
       - "./doomsday-machine/config/rclone:/root/.config/rclone"
       - "./doomsday-machine/config/conf:/etc/cloudbackup"
+  rolodex:
+    image: johnjones4/rolodex
+    restart: always
+    env_file:
+      - ./env/rolodex.secret.env
+    environment:
+      DB_PATH: /var/rolodex/db.sqlite
+      ROOT_URL: rolodex.local.johnjonesfour.com
+      UPLOAD_DIR: /var/rolodex/uploads
   backup:
     build: ./backup
     volumes:
@@ -97,5 +74,4 @@ services:
       - "./gitlab:/containers/gitlab"
       - "./doomsday-machine/config/rclone:/root/.config/rclone"
 volumes:
-  mongo:
   portainer:
