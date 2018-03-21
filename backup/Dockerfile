@@ -28,6 +28,8 @@ RUN cp rclone /usr/bin/
 RUN chmod +x /usr/bin/rclone
 VOLUME /root/.config/rclone
 
+RUN touch /var/log/backup.log
+
 VOLUME "/backups"
 
 CMD ["/usr/bin/startup.sh"]
