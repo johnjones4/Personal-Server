@@ -12,6 +12,7 @@ services:
       - "portainer:portainer"
       - "plex:plex"
       - "rolodex:rolodex"
+      - "feedpage:feedpage"
   portainer:
     image: portainer/portainer
     volumes:
@@ -62,11 +63,19 @@ services:
     env_file:
       - ./env/rolodex.secret.env
     environment:
+      TZ: "America/New_York"
       DB_PATH: /var/rolodex/db.sqlite
       ROOT_URL: rolodex.local.johnjonesfour.com
       UPLOAD_DIR: /var/rolodex/uploads
     volumes:
       - "./rolodex:/var/rolodex"
+  feedpage:
+    image: johnjones4/feedpage
+    restart: always
+    environment:
+      TZ: "America/New_York"
+      OPML_URL: https://gist.githubusercontent.com/johnjones4/0fd1b1b47d62d826164bea99015e5fbe/raw/
+      PORT: 8000
   backup:
     build: ./backup
     volumes:
