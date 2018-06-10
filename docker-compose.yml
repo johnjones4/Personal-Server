@@ -1,23 +1,25 @@
 version: '2'
 
 services:
-  nginx:
-    image: nginx
-    volumes:
-      - "./nginx:/etc/nginx/conf.d"
-    ports:
-      - "80:80"
-    restart: always
-    links:
-      - "portainer:portainer"
-      - "plex:plex"
-      - "rolodex:rolodex"
+  # nginx:
+  #   image: nginx
+  #   volumes:
+  #     - "./nginx:/etc/nginx/conf.d"
+  #   ports:
+  #     - "80:80"
+  #   restart: always
+  #   links:
+  #     - "portainer:portainer"
+  #     - "plex:plex"
+  #     - "rolodex:rolodex"
   portainer:
     image: portainer/portainer
     volumes:
       - "portainer:/data"
       - "/var/run/docker.sock:/var/run/docker.sock"
     restart: always
+    ports:
+      - "9000:9000"
   plex:
     image: plexinc/pms-docker
     volumes:
@@ -67,6 +69,8 @@ services:
       UPLOAD_DIR: /var/rolodex/uploads
     volumes:
       - "./rolodex:/var/rolodex"
+    expose:
+      - "8000:8000"
   backup:
     build: ./backup
     volumes:
