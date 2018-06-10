@@ -70,7 +70,7 @@ services:
       UPLOAD_DIR: /var/rolodex/uploads
     volumes:
       - "./rolodex:/var/rolodex"
-    expose:
+    ports:
       - "8000:8000"
   feedpage:
     image: johnjones4/feedpage
@@ -79,7 +79,7 @@ services:
       TZ: "America/New_York"
       OPML_URL: https://gist.githubusercontent.com/johnjones4/0fd1b1b47d62d826164bea99015e5fbe/raw/
       PORT: 10000
-    expose:
+    ports:
       - "10000:10000"
   backup:
     build: ./backup
