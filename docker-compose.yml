@@ -38,26 +38,26 @@ services:
       - "32414:32414"
     environment:
       TZ: "America/New_York"
-      ADVERTISE_IP: "http://plex.local.johnjonesfour.com:32400"
+      ADVERTISE_IP: "https://plex.local.johnjonesfour.com"
     env_file:
       - ./env/plex.secret.env
     hostname: plex.local.johnjonesfour.com
     restart: always
-  # doomsdaymachine:
-  #   build: ./Doomsday-Machine-2
-  #   restart: always
-  #   environment:
-  #     RETENTION_DAYS: 5
-  #     RCLONE_REMOTES: GoogleDrive:Dropbox
-  #     GITHUB_USER: johnjones4
-  #   volumes:
-  #     - "./doomsday-machine/files/workdir:/var/cloudbackups/workdir"
-  #     - "./doomsday-machine/files/archives:/var/cloudbackups/archives"
-  #     - "./doomsday-machine/config/lastpass:/root/.lpass"
-  #     - "./doomsday-machine/config/geeknote:/root/.geeknote"
-  #     - "./doomsday-machine/config/imap:/root/.imap-backup"
-  #     - "./doomsday-machine/config/rclone:/root/.config/rclone"
-  #     - "./doomsday-machine/config/conf:/etc/cloudbackup"
+  doomsdaymachine:
+    build: ./Doomsday-Machine-2
+    restart: always
+    environment:
+      RETENTION_DAYS: 5
+      RCLONE_REMOTES: GoogleDrive:Dropbox
+      GITHUB_USER: johnjones4
+    volumes:
+      - "./doomsday-machine/files/workdir:/var/cloudbackups/workdir"
+      - "./doomsday-machine/files/archives:/var/cloudbackups/archives"
+      - "./doomsday-machine/config/lastpass:/root/.lpass"
+      - "./doomsday-machine/config/geeknote:/root/.geeknote"
+      - "./doomsday-machine/config/imap:/root/.imap-backup"
+      - "./doomsday-machine/config/rclone:/root/.config/rclone"
+      - "./doomsday-machine/config/conf:/etc/cloudbackup"
   rolodex:
     image: johnjones4/rolodex
     restart: always
