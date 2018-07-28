@@ -68,18 +68,18 @@ services:
       DB_PATH: postgres://personalserver:personalserver@postgres/personalserver
       ROOT_URL: rolodex.local.johnjonesfour.com
       UPLOAD_DIR: /var/rolodex/uploads
+    links:
+      - "postgres:postgres"
     volumes:
       - "./rolodex:/var/rolodex"
     ports:
       - "8000:8000"
   postgres:
-    image: postgres
-    environment:
-      - POSTGRES_PASSWORD=personalserver
-      - POSTGRES_USER=personalserver
-      - POSTGRES_DB=personalserver
+    build: ./postgres
+    env_file:
+      - ./env/postgres.env
     ports:
-      - "5434:5432"
+      - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
   feedpage:
@@ -92,7 +92,13 @@ services:
     ports:
       - "10000:10000"
   backup:
+    env_file:
+      - ./env/postgres.env
+    environment:
+      - POSTGRES_HOST=postgres
     build: ./backup
+    links:
+      - "postgres:postgres"
     volumes:
       - "./backups:/backups"
       - "./doomsday-machine/config:/containers/doomsday-machine"

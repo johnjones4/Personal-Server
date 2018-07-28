@@ -8,7 +8,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update -y
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
   cron \
   curl \
-  unzip
+  unzip \
+  postgresql-client
 
 ADD backup.sh /usr/bin/backup.sh
 ADD backup /etc/cron.d/backup
