@@ -65,7 +65,7 @@ services:
       - ./env/rolodex.secret.env
     environment:
       TZ: "America/New_York"
-      DB_PATH: postgres://personalserver:personalserver@postgres/personalserver
+      DB_PATH: postgres://personalserver:personalserver@postgres/rolodex
       ROOT_URL: rolodex.local.johnjonesfour.com
       UPLOAD_DIR: /var/rolodex/uploads
     links:
