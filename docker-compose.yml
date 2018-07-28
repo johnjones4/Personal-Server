@@ -43,21 +43,21 @@ services:
       - ./env/plex.secret.env
     hostname: plex.local.johnjonesfour.com
     restart: always
-  doomsdaymachine:
-    build: ./Doomsday-Machine-2
-    restart: always
-    environment:
-      RETENTION_DAYS: 5
-      RCLONE_REMOTES: GoogleDrive:Dropbox
-      GITHUB_USER: johnjones4
-    volumes:
-      - "./doomsday-machine/files/workdir:/var/cloudbackups/workdir"
-      - "./doomsday-machine/files/archives:/var/cloudbackups/archives"
-      - "./doomsday-machine/config/lastpass:/root/.lpass"
-      - "./doomsday-machine/config/geeknote:/root/.geeknote"
-      - "./doomsday-machine/config/imap:/root/.imap-backup"
-      - "./doomsday-machine/config/rclone:/root/.config/rclone"
-      - "./doomsday-machine/config/conf:/etc/cloudbackup"
+  # doomsdaymachine:
+  #   build: ./Doomsday-Machine-2
+  #   restart: always
+  #   environment:
+  #     RETENTION_DAYS: 5
+  #     RCLONE_REMOTES: GoogleDrive:Dropbox
+  #     GITHUB_USER: johnjones4
+  #   volumes:
+  #     - "./doomsday-machine/files/workdir:/var/cloudbackups/workdir"
+  #     - "./doomsday-machine/files/archives:/var/cloudbackups/archives"
+  #     - "./doomsday-machine/config/lastpass:/root/.lpass"
+  #     - "./doomsday-machine/config/geeknote:/root/.geeknote"
+  #     - "./doomsday-machine/config/imap:/root/.imap-backup"
+  #     - "./doomsday-machine/config/rclone:/root/.config/rclone"
+  #     - "./doomsday-machine/config/conf:/etc/cloudbackup"
   rolodex:
     image: johnjones4/rolodex
     restart: always
@@ -65,13 +65,23 @@ services:
       - ./env/rolodex.secret.env
     environment:
       TZ: "America/New_York"
-      DB_PATH: /var/rolodex/db.sqlite
+      DB_PATH: postgres://personalserver:personalserver@postgres/personalserver
       ROOT_URL: rolodex.local.johnjonesfour.com
       UPLOAD_DIR: /var/rolodex/uploads
     volumes:
       - "./rolodex:/var/rolodex"
     ports:
       - "8000:8000"
+  postgres:
+    image: postgres
+    environment:
+      - POSTGRES_PASSWORD=personalserver
+      - POSTGRES_USER=personalserver
+      - POSTGRES_DB=personalserver
+    ports:
+      - "5434:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
   feedpage:
     image: johnjones4/feedpage
     restart: always
@@ -91,3 +101,4 @@ services:
       - "./rolodex:/containers/rolodex"
 volumes:
   portainer:
+  pgdata:
