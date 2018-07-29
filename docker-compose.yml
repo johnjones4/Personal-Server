@@ -40,6 +40,8 @@ services:
       RCLONE_REMOTES: GoogleDrive:Dropbox
       GITHUB_USER: johnjones4
       PORT: 12000
+    ports:
+      - "12000:12000"
     volumes:
       - "./doomsday-machine/files/workdir:/var/cloudbackups/workdir"
       - "./doomsday-machine/files/archives:/var/cloudbackups/archives"
