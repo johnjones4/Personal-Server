@@ -16,9 +16,9 @@ ADD backup /etc/cron.d/backup
 RUN chmod 0644 /etc/cron.d/backup
 
 WORKDIR /usr/local/src
-RUN curl -O https://downloads.rclone.org/v1.40/rclone-v1.40-linux-amd64.zip
-RUN unzip rclone-v1.40-linux-amd64.zip
-WORKDIR /usr/local/src/rclone-v1.40-linux-amd64
+RUN curl -O https://downloads.rclone.org/v1.42/rclone-v1.42-linux-amd64.zip
+RUN unzip rclone-v1.42-linux-amd64.zip
+WORKDIR /usr/local/src/rclone-v1.42-linux-amd64
 RUN cp rclone /usr/bin/
 RUN chmod +x /usr/bin/rclone
 VOLUME /root/.config/rclone
