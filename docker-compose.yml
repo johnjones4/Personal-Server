@@ -1,17 +1,6 @@
 version: '2'
 
 services:
-  # nginx:
-  #   image: nginx
-  #   volumes:
-  #     - "./nginx:/etc/nginx/conf.d"
-  #   ports:
-  #     - "80:80"
-  #   restart: always
-  #   links:
-  #     - "portainer:portainer"
-  #     - "plex:plex"
-  #     - "rolodex:rolodex"
   portainer:
     image: portainer/portainer
     volumes:
@@ -50,6 +39,7 @@ services:
       RETENTION_DAYS: 5
       RCLONE_REMOTES: GoogleDrive:Dropbox
       GITHUB_USER: johnjones4
+      PORT: 12000
     volumes:
       - "./doomsday-machine/files/workdir:/var/cloudbackups/workdir"
       - "./doomsday-machine/files/archives:/var/cloudbackups/archives"
