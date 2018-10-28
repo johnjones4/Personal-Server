@@ -40,7 +40,7 @@ services:
     environment:
       TZ: "America/New_York"
       DB_PATH: postgres://personalserver:personalserver@postgres/rolodex
-      ROOT_URL: rolodex.local.johnjonesfour.com
+      ROOT_URL: https://rolodex.local.johnjonesfour.com
       UPLOAD_DIR: /var/rolodex/uploads
     links:
       - "postgres:postgres"
