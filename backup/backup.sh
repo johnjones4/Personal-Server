@@ -6,11 +6,11 @@ BACKUP_DIR="/backups"
 ROLODEX_FILES="$BACKUP_DIR/rolodex_$TIMESTAMP"
 tar zcf "$ROLODEX_FILES.tar.gz" "/containers/rolodex"
 
-DOOMSDAY_MACHINE_FILES="$BACKUP_DIR/doomsday_machine_config_$TIMESTAMP"
-tar zcf "$DOOMSDAY_MACHINE_FILES.tar.gz" "/containers/doomsday-machine"
-
 PLEX_FILES="$BACKUP_DIR/plex_$TIMESTAMP"
 tar zcf "$PLEX_FILES.tar.gz" "/containers/plex"
+
+PORTAINER_FILES="$BACKUP_DIR/portainer_$TIMESTAMP"
+tar zcf "$PORTAINER_FILES.tar.gz" "/containers/portainer"
 
 IFS=';' read -ra DBS <<< "$POSTGRES_DBS"
 for DB in "${DBS[@]}"; do

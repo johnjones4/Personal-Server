@@ -4,7 +4,7 @@ services:
   portainer:
     image: portainer/portainer
     volumes:
-      - "portainer:/data"
+      - "/var/portainer:/data"
       - "/var/run/docker.sock:/var/run/docker.sock"
     restart: always
     ports:
@@ -12,9 +12,9 @@ services:
   plex:
     image: plexinc/pms-docker
     volumes:
-      - "./plex/config:/config"
-      - "./plex/transcode:/transcode"
-      - "./plex/data:/data"
+      - "/var/plex/config:/config"
+      - "/var/plex/transcode:/transcode"
+      - "/var/plex/data:/data"
     ports:
       - "32400:32400"
       - "3005:3005"
@@ -32,24 +32,6 @@ services:
       - ./env/plex.secret.env
     hostname: plex.local.johnjonesfour.com
     restart: always
-  doomsdaymachine:
-    build: ./Doomsday-Machine-2
-    restart: always
-    environment:
-      RETENTION_DAYS: 5
-      RCLONE_REMOTES: GoogleDrive:Dropbox
-      GITHUB_USER: johnjones4
-      PORT: 12000
-    ports:
-      - "12000:12000"
-    volumes:
-      - "./doomsday-machine/files/workdir:/var/cloudbackups/workdir"
-      - "./doomsday-machine/files/archives:/var/cloudbackups/archives"
-      - "./doomsday-machine/config/lastpass:/root/.lpass"
-      - "./doomsday-machine/config/geeknote:/root/.geeknote"
-      - "./doomsday-machine/config/imap:/root/.imap-backup"
-      - "./doomsday-machine/config/rclone:/root/.config/rclone"
-      - "./doomsday-machine/config/conf:/etc/cloudbackup"
   rolodex:
     image: johnjones4/rolodex
     restart: always
@@ -63,7 +45,7 @@ services:
     links:
       - "postgres:postgres"
     volumes:
-      - "./rolodex:/var/rolodex"
+      - "/var/rolodex:/var/rolodex"
     ports:
       - "8000:8000"
   postgres:
@@ -73,7 +55,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - "./postgres:/var/lib/postgresql/data"
   feedpage:
     image: johnjones4/feedpage
     restart: always
@@ -92,11 +74,8 @@ services:
     links:
       - "postgres:postgres"
     volumes:
-      - "./backups:/backups"
-      - "./doomsday-machine/config:/containers/doomsday-machine"
-      - "./plex:/containers/plex"
-      - "./doomsday-machine/config/rclone:/root/.config/rclone"
-      - "./rolodex:/containers/rolodex"
-volumes:
-  portainer:
-  pgdata:
+      - "/var/serverbackups:/backups"
+      - "/var/portainer:/containers/portainer"
+      - "/var/plex:/containers/plex"
+      - "/var/serverconfig/rclone:/root/.config/rclone"
+      - "/var/rolodex:/containers/rolodex"
