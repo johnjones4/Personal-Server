@@ -29,14 +29,14 @@ services:
       TZ: "America/New_York"
       ADVERTISE_IP: "https://plex.local.johnjonesfour.com"
     env_file:
-      - ./env/plex.secret.env
+      - /var/serverconfig/env/plex.secret.env
     hostname: plex.local.johnjonesfour.com
     restart: always
   rolodex:
     image: johnjones4/rolodex
     restart: always
     env_file:
-      - ./env/rolodex.secret.env
+      - /var/serverconfig/env/rolodex.secret.env
     environment:
       TZ: "America/New_York"
       DB_PATH: postgres://personalserver:personalserver@postgres/rolodex
@@ -77,5 +77,6 @@ services:
       - "/var/serverbackups:/backups"
       - "/var/portainer:/containers/portainer"
       - "/var/plex:/containers/plex"
+      - "/var/serverconfig:/containers/serverconfig"
       - "/var/serverconfig/rclone:/root/.config/rclone"
       - "/var/rolodex:/containers/rolodex"

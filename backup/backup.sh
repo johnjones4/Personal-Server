@@ -12,6 +12,9 @@ tar zcf "$PLEX_FILES.tar.gz" "/containers/plex"
 PORTAINER_FILES="$BACKUP_DIR/portainer_$TIMESTAMP"
 tar zcf "$PORTAINER_FILES.tar.gz" "/containers/portainer"
 
+SERVERCONFIG_FILES="$BACKUP_DIR/serverconfig_$TIMESTAMP"
+tar zcf "$SERVERCONFIG_FILES.tar.gz" "/containers/serverconfig"
+
 IFS=';' read -ra DBS <<< "$POSTGRES_DBS"
 for DB in "${DBS[@]}"; do
   echo $DB
