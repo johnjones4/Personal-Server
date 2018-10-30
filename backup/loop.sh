@@ -2,6 +2,6 @@
 
 while :
 do
-  sleep 86400
   /usr/bin/backup.sh
+  sleep 86400
 done
