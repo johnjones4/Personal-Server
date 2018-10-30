@@ -13,6 +13,7 @@ RUN apt-key add ACCC4CF8.asc
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get update -y
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
+  gnupg2 \
   curl \
   unzip \
   postgresql-client-11
