@@ -4,12 +4,16 @@ WORKDIR /root
 
 RUN mkdir /containers
 
+RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ bionic-pgdg main" | sudo tee /etc/apt/sources.list.d/pgdg.list
+RUN wget https://www.postgresql.org/media/keys/ACCC4CF8.asc
+RUN apt-key add ACCC4CF8.asc
+
 RUN DEBIAN_FRONTEND=noninteractive apt-get update -y
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
   cron \
   curl \
   unzip \
-  postgresql-client
+  postgresql-client-11
 
 ADD backup.sh /usr/bin/backup.sh
 ADD backup /etc/cron.d/backup
