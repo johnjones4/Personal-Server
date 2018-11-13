@@ -56,6 +56,7 @@ services:
       - "5432:5432"
     volumes:
       - "/var/postgres:/var/lib/postgresql/data"
+    restart: always
   feedpage:
     image: johnjones4/feedpage
     restart: always
@@ -63,6 +64,7 @@ services:
       TZ: "America/New_York"
       OPML_URL: https://gist.githubusercontent.com/johnjones4/0fd1b1b47d62d826164bea99015e5fbe/raw/
       PORT: 10000
+      NAME: John's Feed
     ports:
       - "10000:10000"
   backup:
