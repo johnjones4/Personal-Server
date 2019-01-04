@@ -68,7 +68,7 @@ services:
     ports:
       - "10000:10000"
   jenkins:
-    image: jenkins/jenkins:lts
+    build: ./jenkins
     ports:
       - "11000:8080"
       - "50000:50000"
