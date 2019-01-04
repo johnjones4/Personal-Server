@@ -67,6 +67,13 @@ services:
       NAME: John's Feed
     ports:
       - "10000:10000"
+  jenkins:
+    image: jenkins/jenkins:lts
+    ports:
+      - "11000:8080"
+      - "50000:50000"
+    - volumes:
+      - "/var/jenkins:/var/jenkins_home"
   backup:
     env_file:
       - ./env/postgres.env
