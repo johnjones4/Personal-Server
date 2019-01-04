@@ -72,7 +72,7 @@ services:
     ports:
       - "11000:8080"
       - "50000:50000"
-    - volumes:
+    volumes:
       - "/var/jenkins:/var/jenkins_home"
     restart: always
   backup:
