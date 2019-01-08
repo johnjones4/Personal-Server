@@ -3,6 +3,9 @@
 TIMESTAMP=$(date "+%Y_%m_%d")
 BACKUP_DIR="/backups"
 
+FILESHARE_FILES="$BACKUP_DIR/fileshare_$TIMESTAMP"
+tar zcf "$FILESHARE_FILES.tar.gz" "/containers/fileshare"
+
 ROLODEX_FILES="$BACKUP_DIR/rolodex_$TIMESTAMP"
 tar zcf "$ROLODEX_FILES.tar.gz" "/containers/rolodex"
 

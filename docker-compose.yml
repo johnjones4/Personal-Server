@@ -91,3 +91,4 @@ services:
       - "/var/serverconfig:/containers/serverconfig"
       - "/var/serverconfig/rclone:/root/.config/rclone"
       - "/var/rolodex:/containers/rolodex"
+      - "/var/fileshare:/containers/fileshare"
