@@ -67,14 +67,15 @@ services:
       NAME: John's Feed
     ports:
       - "10000:10000"
-  jenkins:
-    build: ./jenkins
+  fileshare:
+    image: cptactionhank/netatalk:latest
     ports:
-      - "11000:8080"
-      - "50000:50000"
+      - "548:548"
     volumes:
-      - "/var/jenkins:/var/jenkins_home"
+      - "/var/fileshare:/media/share"
     restart: always
+    env_file:
+      - /var/serverconfig/env/fileshare.secret.env
   backup:
     env_file:
       - ./env/postgres.env
