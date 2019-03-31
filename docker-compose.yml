@@ -1,37 +1,6 @@
 version: '2'
 
 services:
-  portainer:
-    image: portainer/portainer
-    volumes:
-      - "/var/portainer:/data"
-      - "/var/run/docker.sock:/var/run/docker.sock"
-    restart: always
-    ports:
-      - "9000:9000"
-  plex:
-    image: plexinc/pms-docker
-    volumes:
-      - "/var/plex/config:/config"
-      - "/var/plex/transcode:/transcode"
-      - "/var/plex/data:/data"
-    ports:
-      - "32400:32400"
-      - "3005:3005"
-      - "8324:8324"
-      - "32469:32469"
-      - "1900:1900"
-      - "32410:32410"
-      - "32412:32412"
-      - "32413:32413"
-      - "32414:32414"
-    environment:
-      TZ: "America/New_York"
-      ADVERTISE_IP: "https://plex.local.johnjonesfour.com"
-    env_file:
-      - /var/serverconfig/env/plex.secret.env
-    hostname: plex.local.johnjonesfour.com
-    restart: always
   rolodex:
     image: johnjones4/rolodex
     restart: always
@@ -67,28 +36,3 @@ services:
       NAME: John's Feed
     ports:
       - "10000:10000"
-  fileshare:
-    image: cptactionhank/netatalk:latest
-    ports:
-      - "548:548"
-    volumes:
-      - "/var/fileshare:/media/share"
-    restart: always
-    env_file:
-      - /var/serverconfig/env/fileshare.secret.env
-  backup:
-    env_file:
-      - ./env/postgres.env
-    environment:
-      - POSTGRES_HOST=postgres
-    build: ./backup
-    links:
-      - "postgres:postgres"
-    volumes:
-      - "/var/serverbackups:/backups"
-      - "/var/portainer:/containers/portainer"
-      - "/var/plex:/containers/plex"
-      - "/var/serverconfig:/containers/serverconfig"
-      - "/var/serverconfig/rclone:/root/.config/rclone"
-      - "/var/rolodex:/containers/rolodex"
-      - "/var/fileshare:/containers/fileshare"
